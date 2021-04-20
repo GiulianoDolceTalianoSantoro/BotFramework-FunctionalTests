@@ -45,7 +45,7 @@ stages:
                       return $consumerAndSkills;
                     }
 
-                    $consumerAndSkills.Consumer.resourceBotName = $consumer.botName + $suffix;
+                    $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkills.Consumer.botName + $suffix;
                     $consumerAndSkills.Skills = $consumerAndSkills.Skills | ForEach-Object {
                       $skill = $_
                       $skill.resourceBotName = $skill.botName + $suffix
@@ -56,13 +56,7 @@ stages:
                     return $consumerAndSkills
                   }
 
-                  function AddBotsAppIdFromKeyVault () {
-                    Param(
-                      [Array]
-                      $consumerAndSkills,
-                      [String]
-                      $keyVault
-                    )
+                  function AddBotsAppIdFromKeyVault ($consumerAndSkills, $keyVault) {
                     # Load AppIds from KeyVault.
 
                     if (-not $consumerAndSkills.Skills) {
@@ -70,7 +64,7 @@ stages:
                       return $consumerAndSkills.Skills;
                     }
 
-                    return $consumerAndSkills.Skills | ForEach-Object {
+                    $consumerAndSkills.Skills = $consumerAndSkills.Skills | ForEach-Object {
                       $skill = $_;
 
                       if ([String]::IsNullOrEmpty($skill.appId)) {
@@ -91,6 +85,8 @@ stages:
 
                       return $skill;
                     }
+
+                    return $consumerAndSkills
                   }
 
                   function FilterConsumerAndSkillsByScenario ($consumer, $scenarios, $scenario) {
@@ -141,7 +137,7 @@ stages:
 
                   function FilterBotsByResourceExistence ($group, $consumerAndSkills) {
                     # Filter bots only if their resource exists in Azure.
-                  
+
                     $Consumer = $consumerAndSkills.Consumer
                     $Skills = $consumerAndSkills.Skills
 
@@ -193,7 +189,7 @@ stages:
                       return $consumerAndSkills.Skills;
                     }
 
-                    return @($consumerAndSkills.Skills | Where-Object {
+                    $consumerAndSkills.Skills = @($consumerAndSkills.Skills | Where-Object {
                       $skill = $_;
 
                       if ($skill.appId.Trim().Length -eq 0) {
@@ -203,6 +199,8 @@ stages:
 
                       return $true;
                     })
+
+                    return $consumerAndSkills
                   }
 
                   function DeleteExistingAzureAppSettings ($bot) {
@@ -453,7 +451,7 @@ stages:
                   $consumerAndSkillsToConfigure = FilterConsumerAndSkillsByScenario $bot $scenarios $scenario;
 
                   Write-Host $(AddTimeStamp) "`nLoading the Skills AppIds from the KeyVault '$keyVault' when no Pipeline Variable is provided.";
-                  $consumerAndSkillsToConfigure = AddBotsAppIdFromKeyVault -skills $consumerAndSkillsToConfigure -keyVault $keyVault
+                  $consumerAndSkillsToConfigure = AddBotsAppIdFromKeyVault $consumerAndSkillsToConfigure $keyVault
 
                   Write-Host $(AddTimeStamp) "`nFiltering bots that have an AppId assigned ...";
                   $consumerAndSkillsToConfigure = FilterBotWithAppId $consumerAndSkillsToConfigure
