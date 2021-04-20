@@ -5,11 +5,11 @@ parameters:
 stages:
 - ${{ each bot in paramters.bots }}:
   - stage: "${{ bot.botName }}: Set consumer Appsettings"
-    ${{ if (bot.key -contains 'DotNet') }}:
+    ${{ if contains(bot.key, 'DotNet') }}:
       resourceGroup: "$(InternalResourceGroupName)-DotNet"
-    ${{ if (bot.key -contains 'JS') }}:
+    ${{ if contains(bot.key, 'JS') }}:
       resourceGroup: "$(InternalResourceGroupName)-JS"
-    ${{ if (bot.key -contains 'Python') }}:
+    ${{ if contains(bot.key, 'Python') }}:
       resourceGroup: "$(InternalResourceGroupName)-Python"
     jobs:
       - job: "Job"
