@@ -64,10 +64,10 @@ stages:
 
   - template: configureConsumers2.yml
     parameters:
-      scenario: ${{ scenario.name }}
-      azureSubscription: "${{ parameters.azureSubscription }}"
-      keyVault: "${{ parameters.keyVault }}"
-      resourceGroup: "${{ parameters.resourceGroup }}"
+      scenario: "SingleTurn"
+      azureSubscription: "$(AzureSubscription)"
+      keyVault: "$(InternalKeyVaultName)"
+      resourceGroup: "$(InternalResourceGroupName)"
       dependsOn: [Download_Variables]
       bots:
         - key: "SimpleHostBotDotNet"
