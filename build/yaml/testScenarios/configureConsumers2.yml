@@ -9,7 +9,7 @@ parameters:
 stages:
   - stage: "Configure_AppSettings"
     displayName: "Set Consumer Appsettings"
-    dependsOn: "${{ scenario.dependsOn }}"
+    # dependsOn: "${{ scenario.dependsOn }}"
     jobs:
       - ${{ each bot in parameters.bots }}:
         - job: "${{ bot.botName }}"

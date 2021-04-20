@@ -65,11 +65,10 @@ stages:
   - template: configureConsumers2.yml
     parameters:
       scenario: "SingleTurn"
-        dependsOn: Configure_AppSettings
       azureSubscription: "$(AzureSubscription)"
       keyVault: "$(InternalKeyVaultName)"
       resourceGroup: "$(InternalResourceGroupName)"
-      dependsOn: [Download_Variables]
+      dependsOn: [Download_Variables, Configure_AppSettings]
       bots:
         - key: "SimpleHostBotDotNet"
           botName: "bffnsimplehostbotdotnet"
@@ -110,7 +109,6 @@ stages:
       resourceGroup: "$(InternalResourceGroupName)"    
       scenarios:
         - name: Waterfall
-          dependsOn: Configure_AppSettings
           testCategories:
             - Attachments
             - CardActions
@@ -118,6 +116,5 @@ stages:
             - SignIn
 
         - name: SingleTurn
-          dependsOn: Configure_AppSettings
           testCategories:
             - SingleTurn
