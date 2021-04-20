@@ -1,23 +1,26 @@
 parameters:
   scenario: ""
   bots: []
+  azureSubscription: ""
+  resourceGroup: ""
+  keyVault: ""
 
 stages:
 - ${{ each bot in paramters.bots }}:
-  - stage: "${{ bot.botName }}: Set consumer Appsettings"
+  - stage: '${{ bot.botName }}: Set consumer Appsettings'
     ${{ if contains(bot.key, 'DotNet') }}:
-      resourceGroup: "$(InternalResourceGroupName)-DotNet"
+      resourceGroup: '${{ parameters.resourceGroup }}-DotNet'
     ${{ if contains(bot.key, 'JS') }}:
-      resourceGroup: "$(InternalResourceGroupName)-JS"
+      resourceGroup: '${{ parameters.resourceGroup }}-JS'
     ${{ if contains(bot.key, 'Python') }}:
-      resourceGroup: "$(InternalResourceGroupName)-Python"
+      resourceGroup: '${{ parameters.resourceGroup }}-Python'
     jobs:
       - job: "Job"
         steps:
           - task: AzureCLI@2
             displayName: "Set"
             inputs:
-              azureSubscription: $(AzureSubscription)
+              azureSubscription: ${{ parameters.azureSubscription }}
               scriptType: pscore
               scriptLocation: inlineScript
               failOnStderr: true
@@ -308,8 +311,8 @@ stages:
                 }
 
                 # Global Variables
-                $scenario = "$($parameters.scenario)";
-                # $keyVault = "${InternalKeyVaultName}";
+                $scenario = "$($parameters.scenario)"
+                # $keyVault = "$(parameters.keyVault)"
                 $suffix = "-gitali-30";
 
                 # Type of setting to use for the AppSettings variables.

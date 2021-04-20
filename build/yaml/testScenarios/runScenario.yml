@@ -1,5 +1,8 @@
 parameters:
   scenarios: []
+  azureSubscription: ""
+  keyVault: ""
+  resourceGroup: ""
 
 stages:
   - ${{ each scenario in parameters.scenarios }}:
@@ -17,6 +20,9 @@ stages:
             - template: configureConsumers.yml
               parameters:
                 scenario: ${{ scenario.name }}
+                azureSubscription: "${{ parameters.azureSubscription }}"
+                keyVault: "${{ parameters.keyVault }}"
+                resourceGroup: "${{ parameters.resourceGroup }}"
                 bots:
                   - key: "SimpleHostBotDotNet"
                     botName: "bffnsimplehostbotdotnet"
