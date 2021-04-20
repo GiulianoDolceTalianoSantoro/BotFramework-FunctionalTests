@@ -62,6 +62,46 @@ stages:
             displayName: 'Set variables'
             name: 'Set_Variables'
 
+  - template: configureConsumers2.yml
+      parameters:
+        scenario: ${{ scenario.name }}
+        azureSubscription: "${{ parameters.azureSubscription }}"
+        keyVault: "${{ parameters.keyVault }}"
+        resourceGroup: "${{ parameters.resourceGroup }}"
+        dependsOn: [Download_Variables]
+        bots:
+          - key: "SimpleHostBotDotNet"
+            botName: "bffnsimplehostbotdotnet"
+            configType: 0
+          
+          - key: "SimpleHostBotDotNet21"
+            botName: "bffnsimplehostbotdotnet21"
+            configType: 0
+
+          - key: "SimpleHostBotComposerDotNet"
+            botname: "bffnsimplehostbotcomposerdotnet"
+            configType: 2
+
+          - key: "WaterfallHostBotDotNet"
+            botname: "bffnwaterfallhostbotdotnet"
+            configType: 0  
+
+          - key: "SimpleHostBotJS"
+            botname: "bffnsimplehostbotjs"
+            configType: 1
+
+          - key: "WaterfallHostBotJS"
+            botname: "bffnwaterfallhostbotjs"
+            configType: 1
+
+          - key: "SimpleHostBotPython"
+            botname: "bffnsimplehostbotpython"
+            configType: 1
+
+          - key: "WaterfallHostBotPython"
+            botname: "bffnwaterfallhostbotpython"
+            configType: 1
+
   - template: runScenario.yml
     parameters:
       azureSubscription: "$(AzureSubscription)"
@@ -69,6 +109,7 @@ stages:
       resourceGroup: "$(InternalResourceGroupName)"    
       scenarios:
         - name: Waterfall
+          dependsOn: Configure_AppSettings
           testCategories:
             - Attachments
             - CardActions
@@ -76,5 +117,6 @@ stages:
             - SignIn
 
         - name: SingleTurn
+          dependsOn: Configure_AppSettings
           testCategories:
             - SingleTurn

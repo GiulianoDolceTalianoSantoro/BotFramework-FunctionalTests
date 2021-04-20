@@ -17,45 +17,6 @@ stages:
           variables:
             DeploymentBuildSuffix: $[ stageDependencies.Download_Variables.Download_Variables.outputs['Set_Variables.DeploymentBuildSuffix'] ]
           steps:
-            - template: configureConsumers2.yml
-              parameters:
-                scenario: ${{ scenario.name }}
-                azureSubscription: "${{ parameters.azureSubscription }}"
-                keyVault: "${{ parameters.keyVault }}"
-                resourceGroup: "${{ parameters.resourceGroup }}"
-                bots:
-                  - key: "SimpleHostBotDotNet"
-                    botName: "bffnsimplehostbotdotnet"
-                    configType: 0
-                  
-                  - key: "SimpleHostBotDotNet21"
-                    botName: "bffnsimplehostbotdotnet21"
-                    configType: 0
-
-                  - key: "SimpleHostBotComposerDotNet"
-                    botname: "bffnsimplehostbotcomposerdotnet"
-                    configType: 2
-
-                  - key: "WaterfallHostBotDotNet"
-                    botname: "bffnwaterfallhostbotdotnet"
-                    configType: 0  
-
-                  - key: "SimpleHostBotJS"
-                    botname: "bffnsimplehostbotjs"
-                    configType: 1
-
-                  - key: "WaterfallHostBotJS"
-                    botname: "bffnwaterfallhostbotjs"
-                    configType: 1
-
-                  - key: "SimpleHostBotPython"
-                    botname: "bffnsimplehostbotpython"
-                    configType: 1
-
-                  - key: "WaterfallHostBotPython"
-                    botname: "bffnwaterfallhostbotpython"
-                    configType: 1
-
             - task: UseDotNet@2
               displayName: 'Use .Net Core sdk 3.1.x'
               inputs:
