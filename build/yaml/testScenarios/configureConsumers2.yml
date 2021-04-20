@@ -10,12 +10,6 @@ stages:
   - stage: "Configure_AppSettings"
     displayName: "Set Consumer Appsettings"
     dependsOn: "${{ scenario.dependsOn }}"
-    ${{ if contains(bot.key, 'DotNet') }}:
-      resourceGroup: '${{ parameters.resourceGroup }}-DotNet'
-    ${{ if contains(bot.key, 'JS') }}:
-      resourceGroup: '${{ parameters.resourceGroup }}-JS'
-    ${{ if contains(bot.key, 'Python') }}:
-      resourceGroup: '${{ parameters.resourceGroup }}-Python'
     jobs:
       - ${{ each bot in parameters.bots }}:
         - job: "${{ bot.botName }}"

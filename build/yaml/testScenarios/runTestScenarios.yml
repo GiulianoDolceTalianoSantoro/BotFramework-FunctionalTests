@@ -65,6 +65,7 @@ stages:
   - template: configureConsumers2.yml
     parameters:
       scenario: "SingleTurn"
+        dependsOn: Configure_AppSettings
       azureSubscription: "$(AzureSubscription)"
       keyVault: "$(InternalKeyVaultName)"
       resourceGroup: "$(InternalResourceGroupName)"
