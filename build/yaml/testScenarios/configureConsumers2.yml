@@ -6,7 +6,7 @@ parameters:
   keyVault: ""
 
 stages:
-- ${{ each bot in paramters.bots }}:
+- ${{ each bot in parameters.bots }}:
   - stage: '${{ bot.botName }}: Set consumer Appsettings'
     ${{ if contains(bot.key, 'DotNet') }}:
       resourceGroup: '${{ parameters.resourceGroup }}-DotNet'
@@ -16,6 +16,7 @@ stages:
       resourceGroup: '${{ parameters.resourceGroup }}-Python'
     jobs:
       - job: "Job"
+        displayName: "Job steps"
         steps:
           - task: AzureCLI@2
             displayName: "Set"
