@@ -17,7 +17,7 @@ stages:
           variables:
             DeploymentBuildSuffix: $[ stageDependencies.Download_Variables.Download_Variables.outputs['Set_Variables.DeploymentBuildSuffix'] ]
           steps:
-            - template: configureConsumers.yml
+            - template: configureConsumers2.yml
               parameters:
                 scenario: ${{ scenario.name }}
                 azureSubscription: "${{ parameters.azureSubscription }}"
