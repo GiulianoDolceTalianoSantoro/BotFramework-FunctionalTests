@@ -1,8 +1,5 @@
 parameters:
   scenarios: []
-  azureSubscription: ""
-  keyVault: ""
-  resourceGroup: ""
 
 stages:
   - ${{ each scenario in parameters.scenarios }}:

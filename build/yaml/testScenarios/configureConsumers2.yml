@@ -59,18 +59,18 @@ stages:
                   function AddBotsAppIdFromKeyVault () {
                     Param(
                       [Array]
-                      $skills,
+                      $consumerAndSkills,
                       [String]
                       $keyVault
                     )
                     # Load AppIds from KeyVault.
 
-                    if (-not $skills) {
+                    if (-not $consumerAndSkills.Skills) {
                       Write-Host $(AddTimeStamp) $noBotsFoundMessage;;
-                      return $skills;
+                      return $consumerAndSkills.Skills;
                     }
 
-                    return $skills | ForEach-Object {
+                    return $consumerAndSkills.Skills | ForEach-Object {
                       $skill = $_;
 
                       if ([String]::IsNullOrEmpty($skill.appId)) {
@@ -185,15 +185,15 @@ stages:
                     return @{ Consumer = $Consumer; Skills = $Skills}
                   }
 
-                  function FilterBotWithAppId ($skills) {
+                  function FilterBotWithAppId ($consumerAndSkills) {
                     # Filter bots that have an AppId.
 
-                    if (-not $skills) {
+                    if (-not $consumerAndSkills.Skills) {
                       Write-Host $(AddTimeStamp) $noBotsFoundMessage;;
-                      return $skills;
+                      return $consumerAndSkills.Skills;
                     }
 
-                    return @($skills | Where-Object {
+                    return @($consumerAndSkills.Skills | Where-Object {
                       $skill = $_;
 
                       if ($skill.appId.Trim().Length -eq 0) {
@@ -453,10 +453,10 @@ stages:
                   $consumerAndSkillsToConfigure = FilterConsumerAndSkillsByScenario $bot $scenarios $scenario;
 
                   Write-Host $(AddTimeStamp) "`nLoading the Skills AppIds from the KeyVault '$keyVault' when no Pipeline Variable is provided.";
-                  $consumerAndSkillsToConfigure.Skills = AddBotsAppIdFromKeyVault -skills $consumerAndSkillsToConfigure.Skills -keyVault $keyVault
+                  $consumerAndSkillsToConfigure = AddBotsAppIdFromKeyVault -skills $consumerAndSkillsToConfigure -keyVault $keyVault
 
                   Write-Host $(AddTimeStamp) "`nFiltering bots that have an AppId assigned ...";
-                  $consumerAndSkillsToConfigure.Skills = FilterBotWithAppId $consumerAndSkillsToConfigure.Skills
+                  $consumerAndSkillsToConfigure = FilterBotWithAppId $consumerAndSkillsToConfigure
 
                   Write-Host $(AddTimeStamp) "`nAdding the suffix '$suffix' to the bot resources ...";
                   $consumerAndSkillsToConfigure = AddBotSuffix $consumerAndSkillsToConfigure $suffix

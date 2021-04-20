@@ -104,9 +104,6 @@ stages:
 
   - template: runScenario.yml
     parameters:
-      azureSubscription: "$(AzureSubscription)"
-      keyVault: "$(InternalKeyVaultName)"
-      resourceGroup: "$(InternalResourceGroupName)"    
       scenarios:
         - name: Waterfall
           testCategories:
