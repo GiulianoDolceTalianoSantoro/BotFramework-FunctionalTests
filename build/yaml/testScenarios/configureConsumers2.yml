@@ -222,12 +222,14 @@ stages:
                     "skill_*"
                   )
 
-                  $json = (az webapp config appsettings list --name $bot.resourceBotName --resource-group $bot.resourceGroup) | ConvertFrom-Json
+                  Write-Host "$($bot.Value)"
+
+                  $json = (az webapp config appsettings list --name $($bot.resourceBotName) --resource-group $($bot.resourceGroup)) | ConvertFrom-Json
                   $botFrameworkSkillsNames = @($json | Where-Object { $_.name -match ($conditions -join "|") }) | Select-Object -ExpandProperty name
 
                   if ($botFrameworkSkillsNames.Length -gt 0) {
                     $settings = $botFrameworkSkillsNames | ForEach-Object { $_ }
-                    az webapp config appsettings delete --name $bot.resourceBotName --resource-group $bot.resourceGroup --setting-names $settings --output none
+                    az webapp config appsettings delete --name $($bot.resourceBotName) --resource-group $($bot.resourceGroup) --setting-names $settings --output none
                     
                     Write-Host $(AddTimeStamp) "$($bot.key): Azure AppSettings removed:";
                     $settings | ForEach-Object { [PSCustomObject]@{ Name = $_ } } | Format-Table -AutoSize;
@@ -251,7 +253,7 @@ stages:
                   foreach ($bot in $bots) {
                     # Gets the Bot DirectLine
                     Write-Host $(AddTimeStamp) "$($bot.key): Getting the DirectLine secret.";
-                    $directLine = (az bot directline show --name $bot.resourceBotName --resource-group $bot.resourceGroup --with-secrets true | ConvertFrom-Json).properties.properties.sites.key;
+                    $directLine = (az bot directline show --name $($bot.resourceBotName) --resource-group $($bot.resourceGroup) --with-secrets true | ConvertFrom-Json).properties.properties.sites.key;
                     
                     $appSettings.HostBotClientOptions[$bot.key] = @{
                       DirectLineSecret = $directLine
