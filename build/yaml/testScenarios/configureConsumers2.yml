@@ -483,9 +483,11 @@ stages:
                 Write-Host $(AddTimeStamp) "Filtering bots that have an AppId assigned ...";
                 $consumerAndSkillsToConfigure = FilterBotWithAppId $consumerAndSkillsToConfigure
 
-                Write-Host $(AddTimeStamp) "Adding the suffix '$suffix' to the bot resources ...";
-                $consumerAndSkillsToConfigure = AddBotSuffix $consumerAndSkillsToConfigure $suffix
-
+                if (-not($Consumer.resourceGroup -match 'Python')){
+                  Write-Host $(AddTimeStamp) "Adding the suffix '$suffix' to the bot resources ...";
+                  $consumerAndSkillsToConfigure = AddBotSuffix $consumerAndSkillsToConfigure $suffix
+                }
+                
                 Write-Host $(AddTimeStamp) "Filtering existing Resource Groups ...";
                 $resourceGroups = FilterResourceGroupsByExistence $groups
 

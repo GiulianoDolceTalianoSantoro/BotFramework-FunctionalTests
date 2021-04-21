@@ -82,9 +82,9 @@ stages:
           botname: "bffnsimplehostbotcomposerdotnet"
           configType: 2
 
-        - key: "WaterfallHostBotDotNet"
-          botname: "bffnwaterfallhostbotdotnet"
-          configType: 0  
+        # - key: "WaterfallHostBotDotNet"
+        #   botname: "bffnwaterfallhostbotdotnet"
+        #   configType: 0  
 
         # - key: "SimpleHostBotJS"
         #   botname: "bffnsimplehostbotjs"
@@ -98,9 +98,9 @@ stages:
           botname: "bffnsimplehostbotpython"
           configType: 1
 
-        - key: "WaterfallHostBotPython"
-          botname: "bffnwaterfallhostbotpython"
-          configType: 1
+        # - key: "WaterfallHostBotPython"
+        #   botname: "bffnwaterfallhostbotpython"
+        #   configType: 1
 
   # - template: runScenario.yml
   #   parameters:
