@@ -324,7 +324,7 @@ stages:
                 # Global Variables
                 $scenario = "${{ parameters.scenario }}"
                 # $keyVault = "${{ parameters.keyVault }}"
-                $suffix = "-gitali-30";
+                $suffix = "-gitali-92";
 
                 # Type of setting to use for the AppSettings variables.
                 $types = @{
