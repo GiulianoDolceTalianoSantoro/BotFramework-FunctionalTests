@@ -44,8 +44,12 @@ stages:
                     Write-Host $(AddTimeStamp) $noBotsFoundMessage;;
                     return $consumerAndSkills;
                   }
-
-                  $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkills.Consumer.botName + $suffix;
+                
+                  if (-not($Consumer.resourceGroup -match 'Python')){
+                    $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkills.Consumer.botName + $suffix;
+                  } else {
+                    $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkill.Consumer.botName
+                  }
                   $consumerAndSkills.Skills = $consumerAndSkills.Skills | ForEach-Object {
                     $skill = $_
                     $skill.resourceBotName = $skill.botName + $suffix
@@ -483,11 +487,9 @@ stages:
                 Write-Host $(AddTimeStamp) "Filtering bots that have an AppId assigned ...";
                 $consumerAndSkillsToConfigure = FilterBotWithAppId $consumerAndSkillsToConfigure
 
-                if (-not($Consumer.resourceGroup -match 'Python')){
-                  Write-Host $(AddTimeStamp) "Adding the suffix '$suffix' to the bot resources ...";
-                  $consumerAndSkillsToConfigure = AddBotSuffix $consumerAndSkillsToConfigure $suffix
-                }
-                
+                Write-Host $(AddTimeStamp) "Adding the suffix '$suffix' to the bot resources ...";
+                $consumerAndSkillsToConfigure = AddBotSuffix $consumerAndSkillsToConfigure $suffix
+
                 Write-Host $(AddTimeStamp) "Filtering existing Resource Groups ...";
                 $resourceGroups = FilterResourceGroupsByExistence $groups
 
