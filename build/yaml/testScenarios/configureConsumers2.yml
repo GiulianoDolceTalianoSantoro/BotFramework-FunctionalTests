@@ -1,16 +1,17 @@
 parameters:
-  scenarios: []
+  scenario: ""
+  bots: []
   azureSubscription: ""
   resourceGroup: ""
   keyVault: ""
+  dependsOn: ""
 
 stages:
-- ${{ each scenario in parameters.scenarios }}:
-  - stage: "${{ scenario.name }}_Configure_AppSettings"
-    displayName: "${{ scenario.name }}: Set Consumers Appsettings"
-    dependsOn: "${{ scenario.dependsOn }}"
+  - stage: "Configure_AppSettings"
+    displayName: "Set Consumer Appsettings"
+    # dependsOn: "${{ scenario.dependsOn }}"
     jobs:
-    - ${{ each bot in parameters.scenarios.bots }}:
+    - ${{ each bot in parameters.bots }}:
       - job: "${{ bot.key }}"
         variables: 
           ${{ if contains(bot.key, 'DotNet') }}:

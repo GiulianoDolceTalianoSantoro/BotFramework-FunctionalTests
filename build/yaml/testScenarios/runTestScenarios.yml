@@ -64,46 +64,43 @@ stages:
 
   - template: configureConsumers2.yml
     parameters:
+      scenario: "SingleTurn"
       azureSubscription: "$(AzureSubscription)"
       keyVault: "$(InternalKeyVaultName)"
       resourceGroup: "bffnbots-gitali"
-      scenarios:
-        - name: "SingleTurn"
-          dependsOn: [Download_Variables]
-          bots:
-            - key: "SimpleHostBotDotNet"
-              botName: "bffnsimplehostbotdotnet"
-              configType: 0
-            
-            - key: "SimpleHostBotDotNet21"
-              botName: "bffnsimplehostbotdotnet21"
-              configType: 0
+      dependsOn: [Download_Variables, Configure_AppSettings]
+      bots:
+        - key: "SimpleHostBotDotNet"
+          botName: "bffnsimplehostbotdotnet"
+          configType: 0
+        
+        - key: "SimpleHostBotDotNet21"
+          botName: "bffnsimplehostbotdotnet21"
+          configType: 0
 
-            - key: "SimpleHostBotComposerDotNet"
-              botname: "bffnsimplehostbotcomposerdotnet"
-              configType: 2
+        - key: "SimpleHostBotComposerDotNet"
+          botname: "bffnsimplehostbotcomposerdotnet"
+          configType: 2
 
-            - key: "SimpleHostBotJS"
-              botname: "bffnsimplehostbotjs"
-              configType: 1
+        - key: "WaterfallHostBotDotNet"
+          botname: "bffnwaterfallhostbotdotnet"
+          configType: 0  
 
-            - key: "SimpleHostBotPython"
-              botname: "bffnsimplehostbotpython"
-              configType: 1
-        - name: "Waterfall"
-          dependsOn: [Download_Variables]
-          bots:
-            - key: "WaterfallHostBotDotNet"
-              botname: "bffnwaterfallhostbotdotnet"
-              configType: 0
+        - key: "SimpleHostBotJS"
+          botname: "bffnsimplehostbotjs"
+          configType: 1
 
-            - key: "WaterfallHostBotJS"
-              botname: "bffnwaterfallhostbotjs"
-              configType: 1
+        - key: "WaterfallHostBotJS"
+          botname: "bffnwaterfallhostbotjs"
+          configType: 1
 
-            - key: "WaterfallHostBotPython"
-              botname: "bffnwaterfallhostbotpython"
-              configType: 1
+        - key: "SimpleHostBotPython"
+          botname: "bffnsimplehostbotpython"
+          configType: 1
+
+        - key: "WaterfallHostBotPython"
+          botname: "bffnwaterfallhostbotpython"
+          configType: 1
 
   # - template: runScenario.yml
   #   parameters:
