@@ -45,7 +45,7 @@ stages:
                     return $consumerAndSkills;
                   }
                 
-                  if (-not($Consumer.resourceGroup -match 'Python')){
+                  if (-not($consumerAndSkills.Consumer.key -match 'Python')){
                     $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkills.Consumer.botName + $suffix;
                   } else {
                     $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkill.Consumer.botName
