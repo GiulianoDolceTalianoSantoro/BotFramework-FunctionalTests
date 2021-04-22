@@ -48,11 +48,16 @@ stages:
                   if (-not($consumerAndSkills.Consumer.key -match 'Python')){
                     $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkills.Consumer.botName + $suffix;
                   } else {
-                    $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkills.Consumer.botName
+                    $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkills.Consumer.botName + '-92'
                   }
                   $consumerAndSkills.Skills = $consumerAndSkills.Skills | ForEach-Object {
                     $skill = $_
-                    $skill.resourceBotName = $skill.botName + $suffix
+
+                    if (-not($consumerAndSkills.Consumer.key -match 'Python')){
+                      $skill.resourceBotName = $skill.botName + $suffix
+                    } else {
+                      $skill.resourceBotName = $skill.botName + '-92'
+                    }
 
                     return $skill
                   }
