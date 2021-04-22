@@ -53,7 +53,7 @@ stages:
                   $consumerAndSkills.Skills = $consumerAndSkills.Skills | ForEach-Object {
                     $skill = $_
 
-                    if (-not($consumerAndSkills.Consumer.key -match 'Python')){
+                    if (-not($skill.key -match 'Python')){
                       $skill.resourceBotName = $skill.botName + $suffix
                     } else {
                       $skill.resourceBotName = $skill.botName + '-92'
