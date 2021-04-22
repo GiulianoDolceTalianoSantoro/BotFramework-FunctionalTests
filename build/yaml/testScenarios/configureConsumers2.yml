@@ -48,7 +48,7 @@ stages:
                   if (-not($consumerAndSkills.Consumer.key -match 'Python')){
                     $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkills.Consumer.botName + $suffix;
                   } else {
-                    $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkill.Consumer.botName
+                    $consumerAndSkills.Consumer.resourceBotName = $consumerAndSkills.Consumer.botName
                   }
                   $consumerAndSkills.Skills = $consumerAndSkills.Skills | ForEach-Object {
                     $skill = $_
