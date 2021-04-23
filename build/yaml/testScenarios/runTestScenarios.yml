@@ -62,16 +62,56 @@ stages:
             displayName: 'Set variables'
             name: 'Set_Variables'
 
-  - template: runScenario.yml
+  - template: configureConsumers2.yml
     parameters:
-      scenarios:
-        - name: Waterfall
-          testCategories:
-            - Attachments
-            - CardActions
-            - ProactiveMessages
-            - SignIn
+      scenario: "SingleTurn"
+      azureSubscription: "$(AzureSubscription)"
+      keyVault: "$(InternalKeyVaultName)"
+      resourceGroup: "bffnbots-gitali"
+      dependsOn: [Download_Variables, Configure_AppSettings]
+      bots:
+        - key: "SimpleHostBotDotNet"
+          botName: "bffnsimplehostbotdotnet"
+          configType: 0
+        
+        - key: "SimpleHostBotDotNet21"
+          botName: "bffnsimplehostbotdotnet21"
+          configType: 0
 
-        - name: SingleTurn
-          testCategories:
-            - SingleTurn
+        - key: "SimpleHostBotComposerDotNet"
+          botname: "bffnsimplehostbotcomposerdotnet"
+          configType: 2
+
+        # - key: "WaterfallHostBotDotNet"
+        #   botname: "bffnwaterfallhostbotdotnet"
+        #   configType: 0  
+
+        # - key: "SimpleHostBotJS"
+        #   botname: "bffnsimplehostbotjs"
+        #   configType: 1
+
+        # - key: "WaterfallHostBotJS"
+        #   botname: "bffnwaterfallhostbotjs"
+        #   configType: 1
+
+        - key: "SimpleHostBotPython"
+          botname: "bffnsimplehostbotpython"
+          configType: 1
+
+        # - key: "WaterfallHostBotPython"
+        #   botname: "bffnwaterfallhostbotpython"
+        #   configType: 1
+
+  # - template: runScenario.yml
+  #   parameters:
+  #     scenarios:
+  #       - name: Waterfall
+  #         testCategories:
+  #           - Attachments
+  #           - CardActions
+  #           - ProactiveMessages
+  #           - SignIn
+
+  #       - name: SingleTurn
+  #         testCategories:
+  #           - SingleTurn
