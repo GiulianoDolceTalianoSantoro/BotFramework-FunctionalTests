@@ -131,7 +131,7 @@ stages:
           displayName: 'DotNet Echo Skill Bot 2.1'
           appId: $(BffnEchoSkillBotDotNet21AppId)
           appSecret: $(BffnEchoSkillBotDotNet21AppSecret)
-          dependsOn: [Deploy_bffnechoskillbotdotnet]
+          dependsOn: "Deploy_bffnechoskillbotdotnet"
           project: 
             directory: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-2.1'
             name: 'EchoSkillBot-2.1.csproj'
@@ -142,7 +142,7 @@ stages:
           displayName: 'DotNet Echo Skill Bot v3'
           appId: $(BffnEchoSkillBotDotNetV3AppId)
           appSecret: $(BffnEchoSkillBotDotNetV3AppSecret)
-          dependsOn: [Deploy_bffnechoskillbotdotnet]
+          dependsOn: "Deploy_bffnechoskillbotdotnet"
           project:
             directory: 'Bots/DotNet/Skills/CodeFirst/EchoSkillBot-v3'
             name: 'EchoSkillBot-v3.csproj'
@@ -152,7 +152,7 @@ stages:
           displayName: 'DotNet Waterfall Host Bot'
           appId: $(BffnWaterfallHostBotDotNetAppId)
           appSecret: $(BffnWaterfallHostBotDotNetAppSecret)
-          dependsOn: [Deploy_bffnechoskillbotdotnet]
+          dependsOn: "Deploy_bffnechoskillbotdotnet"
           project:
             directory: 'Bots/DotNet/Consumers/CodeFirst/WaterfallHostBot'
             name: 'WaterfallHostBot.csproj'
@@ -163,7 +163,7 @@ stages:
           displayName: 'DotNet Waterfall Skill Bot'
           appId: $(BffnWaterfallSkillBotDotNetAppId)
           appSecret: $(BffnWaterfallSkillBotDotNetAppSecret)
-          dependsOn: [Deploy_bffnwaterfallhostbotdotnet]
+          dependsOn: "Deploy_bffnwaterfallhostbotdotnet"
           project: 
             directory: 'Bots/DotNet/Skills/CodeFirst/WaterfallSkillBot'
             name: 'WaterfallSkillBot.csproj'
@@ -179,7 +179,7 @@ stages:
           displayName: 'DotNet Simple Composer Host Bot'
           appId: $(BffnSimpleHostBotComposerDotNetAppId)
           appSecret: $(BffnSimpleHostBotComposerDotNetAppSecret)
-          dependsOn: [Deploy_bffnwaterfallhostbotdotnet]
+          dependsOn: "Deploy_bffnwaterfallhostbotdotnet"
           project: 
             directory: 'Bots/DotNet/Consumers/Composer/SimpleHostBotComposer'
             netCoreVersion: '3.1.x'
@@ -189,7 +189,7 @@ stages:
           displayName: 'DotNet Echo Composer Skill Bot'
           appId: $(BffnEchoSkillBotComposerDotNetAppId)
           appSecret: $(BffnEchoSkillBotComposerDotNetAppSecret)
-          dependsOn: [Deploy_bffnwaterfallhostbotdotnet]
+          dependsOn: "Deploy_bffnwaterfallhostbotdotnet"
           project: 
             directory: 'Bots/DotNet/Skills/Composer/EchoSkillBotComposer'
             netCoreVersion: '3.1.x'

@@ -1,5 +1,4 @@
 parameters:
-  dependsOn: ''
   resourceGroup: ''
   bots: []
 
@@ -10,7 +9,7 @@ stages:
       displayName: '${{ bot.name }}'
     ${{ if ne(bot.displayName, '') }}:
       displayName: '${{ bot.displayName }}'
-    dependsOn: '${{ parameters.dependsOn }}'
+    dependsOn: '${{ bot.dependsOn }}'
     jobs:
       - job: 'Deploy'
         ${{ if eq(bot.type, 'SkillV3') }}:
