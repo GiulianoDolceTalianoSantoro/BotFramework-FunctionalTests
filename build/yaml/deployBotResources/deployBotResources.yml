@@ -189,7 +189,7 @@ stages:
           displayName: 'DotNet Echo Composer Skill Bot'
           appId: $(BffnEchoSkillBotComposerDotNetAppId)
           appSecret: $(BffnEchoSkillBotComposerDotNetAppSecret)
-          dependsOn: "Deploy_bffnwaterfallskillbotdotnet"
+          dependsOn: "Deploy_bffnwaterfallhostbotdotnet"
           project: 
             directory: 'Bots/DotNet/Skills/Composer/EchoSkillBotComposer'
             netCoreVersion: '3.1.x'
