@@ -17,6 +17,8 @@ stages:
           variables:
             SolutionDir: "$(Build.SourcesDirectory)/Bots/DotNet/"
         displayName: 'Deploy steps'
+        strategy:
+          maxParallel: 3
         steps:
           # Delete Bot Resources
           - template: ../common/deleteResources.yml
