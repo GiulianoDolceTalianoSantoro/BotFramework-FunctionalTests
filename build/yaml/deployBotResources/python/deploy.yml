@@ -164,7 +164,7 @@ stages:
             
           # Deploy bot
           - task: AzureWebApp@1
-            displayName: "Deploy Azure Web App : ${{ bot.name }}-"
+            displayName: "Deploy Azure Web App : ${{ bot.name }}"
             inputs:
               azureSubscription: "${{ parameters.azureSubscription }}"
               appName: "${{ bot.name }}${{ parameters.resourceSuffix }}"

@@ -178,7 +178,7 @@ variables:
   InternalAppServicePlanWindowsResourceGroup: $[coalesce(variables['APPSERVICEPLANGROUP'], 'bffnshared')]
   InternalKeyVaultName: 'bffnbotkeyvault$(INTERNALRESOURCESUFFIX)'
   InternalResourceGroupName: $[coalesce(variables['RESOURCEGROUP'], 'bffnbots')]
-  InternalResourceSuffix: $[coalesce(variables['RESOURCESUFFIX'], '-$(BUILD.BUILDID)', '')]
+  InternalResourceSuffix: $[coalesce(variables['RESOURCESUFFIX'], '-$(BUILD.BUILDID)')]
 
 
 stages:
