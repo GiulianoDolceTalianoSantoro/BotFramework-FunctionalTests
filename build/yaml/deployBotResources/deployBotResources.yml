@@ -475,7 +475,7 @@ stages:
         displayName: "Publish Variables"
         steps:
           - powershell: |
-              Write-Host "$(INTERNALRESOURCESUFFIX)"
+              Write-Host "Variabel saved $(INTERNALRESOURCESUFFIX)"
 
               $variables = @{
                 deploymentBuildSuffix = "$(INTERNALRESOURCESUFFIX)"
