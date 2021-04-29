@@ -475,10 +475,8 @@ stages:
         displayName: "Publish Variables"
         steps:
           - powershell: |
-              Write-Host "Variable saved $(INTERNALRESOURCESUFFIX)"
-
               $variables = @{
-                deploymentBuildSuffix = "$(INTERNALRESOURCESUFFIX)"
+                deploymentBuildSuffix = ""
               }
               Write-Host $variables
               New-Item -Path "$(SYSTEM.DEFAULTWORKINGDIRECTORY)" -Name "variables" -ItemType "directory"
