@@ -61,12 +61,11 @@ stages:
               path: "$(SYSTEM.DEFAULTWORKINGDIRECTORY)/Variables/"
 
           - powershell: |
-              $deploymentBuildSuffix = (Get-Content -Path "$(SYSTEM.DEFAULTWORKINGDIRECTORY)/Variables/variables.json" | ConvertFrom-Json).deploymentBuildSuffix
-              Write-Host "1 Suffix: $deploymentBuildSuffix"
-              if (-not $deploymentBuildSuffix) { $deploymentBuildSuffix = "$(INTERNALRESOURCESUFFIX)" }
-              Write-Host "2 Suffix: $deploymentBuildSuffix"
-              Write-Host "Deployment Suffix: " $deploymentBuildSuffix
-              Write-Host "##vso[task.setvariable variable=DeploymentBuildSuffix;isOutput=true]-$deploymentBuildSuffix"
+              $deploymentResourceSuffix = (Get-Content -Path "$(SYSTEM.DEFAULTWORKINGDIRECTORY)/Variables/variables.json" | ConvertFrom-Json).deploymentResourceSuffix
+              if (-not $deploymentResourceSuffix) { $deploymentResourceSuffix = "$(INTERNALRESOURCESUFFIX)" }
+              Write-Host "2 Suffix: $deploymentResourceSuffix"
+              Write-Host "Deployment Suffix: " $deploymentResourceSuffix
+              Write-Host "##vso[task.setvariable variable=DeploymentResourceSuffix;isOutput=true]-$deploymentResourceSuffix"
             displayName: "Set variables"
             name: "Set_Variables"
 
@@ -85,7 +84,7 @@ stages:
         WaterfallSkillBotPython: "$(BFFNWATERFALLSKILLBOTPYTHONAPPID)"
       azureSubscription: "$(AZURESUBSCRIPTION)"
       buildConfiguration: "$(BUILDCONFIGURATION)"
-      buildIdSuffix: $[stageDependencies.Download_Variables.Download_Variables.outputs['Set_Variables.DeploymentBuildSuffix']]
+      deploymentResourceSuffix: $[stageDependencies.Download_Variables.Download_Variables.outputs['Set_Variables.DeploymentResourceSuffix']]
       keyVault: "$(INTERNALKEYVAULTNAME)"
       resourceGroup: "$(INTERNALRESOURCEGROUPNAME)"
       resourceSuffix: "$(INTERNALRESOURCESUFFIX)"

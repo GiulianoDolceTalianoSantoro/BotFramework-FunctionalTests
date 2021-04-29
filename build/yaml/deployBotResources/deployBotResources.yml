@@ -476,7 +476,7 @@ stages:
         steps:
           - powershell: |
               $variables = @{
-                deploymentBuildSuffix = ""
+                deploymentResourceSuffix = ""
               }
               Write-Host $variables
               New-Item -Path "$(SYSTEM.DEFAULTWORKINGDIRECTORY)" -Name "variables" -ItemType "directory"
